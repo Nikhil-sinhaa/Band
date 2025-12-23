@@ -3,7 +3,20 @@ var n = document.querySelectorAll(".drum").length;
 for (var i = 0; i < n; i++) {
   document.querySelectorAll(".drum")[i].addEventListener("click", function () {
     var buttonInnerHtml = this.innerHTML;
-    switch(buttonInnerHtml){
+    makesound(buttonInnerHtml);
+    buttonAnimation(buttonInnerHtml);
+
+    // var audio = new Audio("sounds/crash.mp3");
+    // audio.play();
+  });
+}
+document.addEventListener("keydown",function(event){
+    makesound(event.key);
+    buttonAnimation(event.key);
+
+});
+ function makesound(key){
+switch(key){
         case "w":
             var crash = new Audio("sounds/crash.mp3");
             crash.play();
@@ -34,8 +47,11 @@ for (var i = 0; i < n; i++) {
             break;
         default: console.log(buttonInnerHtml);
     }
-
-    // var audio = new Audio("sounds/crash.mp3");
-    // audio.play();
-  });
-}
+ }
+ function buttonAnimation(key){
+    var activebutton = document.querySelector("."+key);
+    activebutton.classList.add("pressed");
+    setTimeout(function(){
+        activebutton.classList.remove("pressed");
+    },100)
+ }
